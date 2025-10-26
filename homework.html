@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Master Cleans — Aseos Generales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        footer {
+            background-color: #0033cc;
+            /* Azul rey */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer a {
+            color: #ffd700;
+            /* Amarillo dorado */
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Popup Overlay */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Popup Content */
+        .popup-content {
+            background: white;
+            color: #000;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+
+        .popup-overlay.show .popup-content {
+            transform: translateY(0);
+        }
+
+        /* Popup Header */
+        .popup-header {
+            background: #f0f0f0;
+            padding: 15px 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* Popup Body */
+        .popup-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Close Button at bottom */
+        .popup-close {
+            background: #28a745;
+            /* Verde estándar */
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 15px auto 20px auto;
+            display: block;
+        }
+
+        .popup-close:hover {
+            background: #218838;
+        }
+
+        /* Scrollbar styling (opcional) */
+        .popup-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-body::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+</head>
+
+<body class="font-[Inter] bg-gray-50 text-gray-800">
+
+    <!-- HEADER con carrito en la barra superior -->
+    <header
+        class="bg-white fixed top-6 left-1/2 transform -translate-x-1/2 rounded-full shadow-lg max-w-7xl w-[95vw] z-50">
+        <div class="flex justify-between items-center py-4 px-6">
+            <div class="flex items-center gap-4">
+                 <img src="https://i.ibb.co/1tdsFNgW/logo-Crist.png" class="w-13 h-12 object-contain" alt="logo-Company">
+                <h1 class="text-2xl font-bold text-[#4aad00] uppercase">Master Cleans</h1>
+            </div>
+            <nav class="flex gap-6 text-right items-center">
+                <a href="#hero"
+                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Inicio</a>
+                <a href="#planes"
+                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Planes</a>
+                <a href="#nosotros"
+                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Nosotros</a>
+                <button onclick="toggleCart()" class="relative ml-4">
+                    <i class="fas fa-shopping-cart text-2xl text-[#4aad00]"></i>
+                    <span id="cartQty"
+                        class="absolute -top-2 -right-3 bg-[#4aad00] text-white rounded-full px-2 text-xs font-bold">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- POPUP Carrito Mejorado -->
+    <div id="cartModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-end pt-20 z-50 hidden transition-all">
+        <div class="bg-white w-full max-w-sm h-fit rounded-xl shadow-lg p-6 mr-8 flex flex-col">
+            <h2 class="font-bold text-lg mb-4 text-[#4aad00] flex items-center"><i
+                    class="fas fa-shopping-cart mr-2"></i> Carrito</h2>
+            <form id="cartForm">
+                <ul id="cartList" class="mb-4 text-black list-none"></ul>
+            </form>
+            <div class="flex justify-between items-center font-bold mb-4">
+                <span>Total:</span>
+                <span id="cartTotal" class="text-[#4aad00] text-lg"></span>
+            </div>
+            <div class="flex gap-3">
+                <button type="button" onclick="removeSelected()"
+                    class="bg-red-600 text-white px-4 py-2 rounded-full font-bold hover:bg-red-700 transition-all">Eliminar</button>
+                <button type="button" onclick="comprarSeleccionados()"
+                    class="bg-[#4aad00] text-white px-4 py-2 rounded-full font-bold hover:bg-[#347200] transition-all">Comprar</button>
+                <button type="button" onclick="toggleCart()"
+                    class="bg-gray-200 px-4 py-2 rounded-full font-bold hover:bg-gray-300 transition-all">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- HERO SLIDER -->
+    <section id="hero" class="relative w-full bg-white flex items-center h-[90vh] overflow-x-hidden">
+        <!-- Flecha Izquierda -->
+        <button id="prevSlide"
+            class="absolute left-8 top-1/2 -translate-y-1/2 text-[#93c90f] text-3xl z-10 hover:scale-110 transition">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <!-- Texto principal centrado respecto a la columna -->
+        <div class="flex-1 flex flex-col items-center justify-center px-4 md:px-16">
+            <h2 id="heroTitle" class="text-4xl md:text-5xl font-extrabold mb-2 text-[#93c90f] text-center"></h2>
+            <h3 id="heroSubtitle" class="text-2xl md:text-3xl font-semibold mb-4 text-[#b6f397] text-center"></h3>
+            <p id="heroText" class="text-lg font-semibold text-black mb-4 text-center"></p>
+        </div>
+
+        <!-- Imágenes circulares superpuestas a la derecha -->
+        <div class="flex-1 flex justify-center items-center">
+            <div class="relative w-[410px] h-[410px]">
+                <img id="circleImg1" src=""
+                    class="absolute w-[220px] h-[220px] rounded-full ring-4 ring-white top-0 right-5 object-cover shadow-lg z-10 transition-all duration-700" />
+                <img id="circleImg2" src=""
+                    class="absolute w-[180px] h-[180px] rounded-full ring-4 ring-white bottom-8 left-0 object-cover shadow-lg z-20 transition-all duration-700" />
+                <img id="circleImg3" src=""
+                    class="absolute w-[240px] h-[240px] rounded-full ring-4 ring-white bottom-0 right-0 object-cover shadow-lg z-0 transition-all duration-700" />
+            </div>
+        </div>
+
+        <!-- Flecha Derecha -->
+        <button id="nextSlide"
+            class="absolute right-8 top-1/2 -translate-y-1/2 text-[#93c90f] text-3xl z-10 hover:scale-110 transition">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </section>
+
+    <script>
+        const slides = [
+            {
+                title: "Haz crecer tus sueños con espacios impecables",
+                subtitle: "Confía en nosotros para cuidar cada detalle de tus lugares de trabajo",
+                text: "Generamos ambientes limpios y agradables que inspiran creatividad y mejoran tu desempeño.",
+                images: [
+                    "https://images.pexels.com/photos/9462626/pexels-photo-9462626.jpeg",
+                    "https://images.pexels.com/photos/9462614/pexels-photo-9462614.jpeg",
+                    "https://images.pexels.com/photos/9462737/pexels-photo-9462737.jpeg"
+                ]
+            },
+            {
+                title: "Calidad Garantizada para tu espacio",
+                subtitle: "Profesionales dedicados a tu bienestar",
+                text: "Ofrecemos soluciones de limpieza adaptadas a tus necesidades y a tu hogar.",
+                images: [
+                    "https://images.pexels.com/photos/9462206/pexels-photo-9462206.jpeg",
+                    "https://images.pexels.com/photos/9462665/pexels-photo-9462665.jpeg",
+                    "https://images.pexels.com/photos/9462192/pexels-photo-9462192.jpeg"
+                ]
+            },
+            {
+                title: "Ambientes seguros y agradables",
+                subtitle: "Nos adaptamos a tus necesidades",
+                text: "Cuidamos cada detalle para brindar bienestar y confianza.",
+                images: [
+                    "https://images.pexels.com/photos/9462614/pexels-photo-9462614.jpeg",
+                    "https://images.pexels.com/photos/6466489/pexels-photo-6466489.jpeg",
+                    "https://images.pexels.com/photos/6466478/pexels-photo-6466478.jpeg"
+                ]
+            }
+        ];
+
+        let currentIndex = 0;
+        let intervalId;
+
+        function showSlide(idx) {
+            const slide = slides[idx];
+            document.getElementById('heroTitle').textContent = slide.title;
+            document.getElementById('heroSubtitle').textContent = slide.subtitle;
+            document.getElementById('heroText').textContent = slide.text;
+            document.getElementById('circleImg1').src = slide.images[0];
+            document.getElementById('circleImg2').src = slide.images[1];
+            document.getElementById('circleImg3').src = slide.images[2];
+        }
+
+        function startInterval() {
+            stopInterval();
+            intervalId = setInterval(() => {
+                currentIndex = (currentIndex + 1) % slides.length;
+                showSlide(currentIndex);
+            }, 10000); // 10 segundos
+        }
+
+        function stopInterval() {
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+        }
+
+        document.getElementById('nextSlide').onclick = function () {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+            startInterval(); // reinicia el temporizador
+        };
+
+        document.getElementById('prevSlide').onclick = function () {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+            startInterval(); // reinicia el temporizador
+        };
+
+        // Pausa el slider cuando el mouse está encima
+        document.getElementById('hero').addEventListener('mouseenter', () => {
+            stopInterval();
+        });
+
+        // Reanuda el slider cuando el mouse sale
+        document.getElementById('hero').addEventListener('mouseleave', () => {
+            startInterval();
+        });
+
+        // Inicializa con el primer slide y la rotación activa
+        showSlide(0);
+        startInterval();
+    </script>
+
+    <!-- PLANES DE SERVICIO -->
+    <section id="planes" class="py-16 bg-gray-100">
+        <h2 class="text-3xl font-bold text-center mb-10">Planes de Servicio</h2>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
+
+            <!-- Card Básico -->
+            <div
+                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE BÁSICO POR SOLO $90.000 PESOS</h3>
+                <p class="text-center mb-4">Limpieza general de áreas comunes, pisos, baños y cocina (4 horas de
+                    servicio)</p>
+                <div>
+                    <h4 class="text-lg font-semibold text-center mb-2">Servicios de limpieza:</h4>
+                    <ul class="text-black list-disc ml-6 space-y-1">
+                        <li>Barrido y trapeado de pisos.</li>
+                        <li>Limpieza de cocina.</li>
+                        <li>Limpieza de baños.</li>
+                        <li>Limpieza de polvo en superficies de fácil acceso.</li>
+                        <li>Recolección y depósito de basura.</li>
+                        <li>Aromatización de tu hogar con fragancias suaves y duraderas.</li>
+                    </ul>
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="openModal()"
+                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all">Condiciones</button>
+                    <button onclick="addToCart('Paquete Básico')"
+                        class="bg-gray-200 rounded-full py-2 px-6 font-semibold shadow hover:bg-gray-300 transition-all">Comprar</button>
+                </div>
+                <p class="text-xs text-center italic mt-4 text-black">
+                    Agenda nuestro servicio a través de la página web
+                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                    plan básico aplica para hogares de hasta 60 m2
+                </p>
+            </div>
+
+            <!-- Card Plus -->
+            <div
+                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE PLUS+ POR SOLO $150.000 PESOS</h3>
+                <p class="text-center mb-4">Incluye los servicios del paquete básico más limpieza profunda.</p>
+                <div>
+                    <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
+                    <ul class="text-black list-disc ml-6 space-y-1">
+                        <li>Todo el paquete básico.</li>
+                        <li>Cambio de sábanas y fundas en áreas de descanso.</li>
+                        <li>Limpieza de puertas y marcos.</li>
+                        <li>Limpieza de ventanas y espejos.</li>
+                        <li>Limpieza de electrodomésticos (nevera, microondas).</li>
+                        <li>Aromatización adicional en áreas específicas para mayor duración de la fragancia en tu
+                            hogar.</li>
+                    </ul>
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="openModal()"
+                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all">Condiciones</button>
+                    <button onclick="addToCart('Paquete Plus+')"
+                        class="bg-gray-200 rounded-full py-2 px-6 font-semibold shadow hover:bg-gray-300 transition-all">Comprar</button>
+                </div>
+                <p class="text-xs text-center italic mt-4 text-black">
+                    Agenda nuestro servicio a través de la página web
+                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                    plan básico aplica para hogares de hasta 90 m2
+                </p>
+            </div>
+
+            <!-- Card Gold -->
+            <div
+                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE GOLD POR SOLO $200.000</h3>
+                <p class="text-center mb-4">Limpieza completa, detallada y profunda. Incluye todos los servicios del
+                    paquete plus+</p>
+                <div>
+                    <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
+                    <ul class="text-black list-disc ml-6 space-y-1">
+                        <li>Todo el paquete plus+.</li>
+                        <li>Limpieza de tapetes y cortinas.</li>
+                        <li>Limpieza de esquinas y guarda escobas.</li>
+                        <li>Limpieza y desinfección de áreas sensibles.</li>
+                        <li>Aromatización en todo tu hogar con fragancias premium.</li>
+                    </ul>
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="openModal()"
+                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all">Condiciones</button>
+                    <button onclick="addToCart('Paquete Gold')"
+                        class="bg-gray-200 rounded-full py-2 px-6 font-semibold shadow hover:bg-gray-300 transition-all">Comprar</button>
+                </div>
+                <p class="text-xs text-center italic mt-4 text-black">
+                    Agenda nuestro servicio a través de la página web
+                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                    plan básico aplica para hogares de hasta 130 m2
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL CONDICIONES -->
+    <div id="modalCondiciones"
+        class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl w-[95%] max-w-2xl shadow-xl p-6 relative">
+            <h2 class="text-lg font-bold mb-4 text-[#4aad00]">CONDICIONES PARA LA SOLICITUD DEL SERVICIO</h2>
+            <ul class="list-disc space-y-2 ml-5 text-gray-700 text-base">
+                <li>Programar 1 día antes a través de nuestra página web <a class="underline text-blue-700"
+                        href="http://www.masterclean.com/">www.masterclean.com</a></li>
+                <li>Alistar los elementos de aseo con los que se prestará el servicio de limpieza</li>
+                <li>El profesional llegará en el rango de horario seleccionado, si por algún motivo la persona no se
+                    encuentra en el domicilio el servicio se reprograma y tendrá un recargo adicional de $7.000 pesos.
+                </li>
+                <li>Si por alguna situación no puedes atender al personal de limpieza, notificar dos horas antes de la
+                    hora programada para el servicio</li>
+                <li>El servicio de limpieza se prestará solo en en lugar o domicilio que indicó</li>
+                <li>Antes de despedir al personal de limpieza verificar si estás conforme con el trabajo realizado</li>
+                <li>Solo se realizarán las actividades mencionadas en el paquete de servicio y limpieza que se contrató
+                </li>
+            </ul>
+            <div class="mt-5 mb-2 text-base text-gray-900">
+                <strong>¿Qué ofrece nuestro servicio y qué lo hace atractivo?</strong>
+                <br>
+                SERVICIO:<br>
+                Nuestro servicio cuenta con técnicas de limpieza eficientes y ofrecemos servicios con precios asequibles
+                para la limpieza del hogar, algo que nos destaca es que no manejamos las horas establecidas para los
+                servicios que brindamos.
+            </div>
+            <div class="mb-3 text-base text-gray-900">
+                <strong>¿Dónde vende su producto y cómo lo distribuye?</strong>
+                <br>
+                Nuestro servicio se promociona a través de las plataformas digitales y en nuestra página web en donde
+                podrán encontrar información de los servicios que brindamos y programarlos 1 día hábil de anticipación
+                <br>
+                <strong>Ubicación:</strong> Bogotá
+            </div>
+            <div class="flex justify-end">
+                <button onclick="closeModal()"
+                    class="bg-[#4aad00] mt-2 text-white rounded-full py-2 px-10 font-bold shadow hover:bg-[#347200] transition-all">Aceptar</button>
+            </div>
+            <button onclick="closeModal()"
+                class="absolute top-2 right-2 text-gray-500 text-xl hover:text-black transition">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal condiciones
+        function openModal() {
+            document.getElementById("modalCondiciones").classList.remove("hidden");
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById("modalCondiciones").classList.add("hidden");
+            document.body.style.overflow = '';
+        }
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closeModal();
+        });
+        document.getElementById("modalCondiciones").addEventListener("click", function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Carrito
+        const cart = [];
+        function addToCart(plan) {
+            cart.push(plan);
+            document.getElementById("cartQty").innerText = cart.length;
+            updateCartModal();
+        }
+        function updateCartModal() {
+            const cartList = document.getElementById("cartList");
+            if (cart.length === 0) {
+                cartList.innerHTML = '<li>El carrito está vacío.</li>';
+            } else {
+                cartList.innerHTML = "";
+                cart.forEach((item, i) => {
+                    const li = document.createElement("li");
+                    li.textContent = item;
+                    cartList.appendChild(li);
+                });
+            }
+        }
+        function toggleCart() {
+            const cartModal = document.getElementById("cartModal");
+            cartModal.classList.toggle("hidden");
+            if (!cartModal.classList.contains("hidden")) {
+                document.body.style.overflow = 'hidden';
+                updateCartModal();
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+    </script>
+
+    <!-- MODAL POPUP (solo uno en todo el HTML) -->
+    <div id="modalCondiciones"
+        class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl w-[95%] max-w-2xl shadow-xl p-6 relative">
+            <h2 class="text-lg font-bold mb-4 text-[#4aad00]">CONDICIONES PARA LA SOLICITUD DEL SERVICIO</h2>
+            <ul class="list-disc space-y-2 ml-5 text-gray-700 text-base">
+                <li>Programar 1 día antes a través de nuestra página web <a class="underline text-blue-700"
+                        href="http://www.masterclean.com/">www.masterclean.com</a></li>
+                <li>Alistar los elementos de aseo con los que se prestará el servicio de limpieza</li>
+                <li>El profesional llegará en el rango de horario seleccionado, si por algún motivo la persona no se
+                    encuentra en el domicilio el servicio se reprograma y tendrá un recargo adicional de $7.000 pesos.
+                </li>
+                <li>Si por alguna situación no puedes atender al personal de limpieza, notificar dos horas antes de la
+                    hora programada para el servicio</li>
+                <li>El servicio de limpieza se prestará solo en en lugar o domicilio que indicó</li>
+                <li>Antes de despedir al personal de limpieza verificar si estás conforme con el trabajo realizado</li>
+                <li>Solo se realizarán las actividades mencionadas en el paquete de servicio y limpieza que se contrató
+                </li>
+            </ul>
+            <div class="mt-5 mb-2 text-base text-gray-900">
+                <strong>¿Qué ofrece nuestro servicio y qué lo hace atractivo?</strong>
+                <br>
+                SERVICIO:<br>
+                Nuestro servicio cuenta con técnicas de limpieza eficientes y ofrecemos servicios con precios asequibles
+                para la limpieza del hogar, algo que nos destaca es que no manejamos las horas establecidas para los
+                servicios que brindamos.
+            </div>
+            <div class="mb-3 text-base text-gray-900">
+                <strong>¿Dónde vende su producto y cómo lo distribuye?</strong>
+                <br>
+                Nuestro servicio se promociona a través de las plataformas digitales y en nuestra página web en donde
+                podrán encontrar información de los servicios que brindamos y programarlos 1 día hábil de anticipación
+                <br>
+                <strong>Ubicación:</strong> Bogotá
+            </div>
+            <div class="flex justify-end">
+                <button onclick="closeModal()"
+                    class="bg-[#4aad00] mt-2 text-white rounded-full py-2 px-10 font-bold shadow hover:bg-[#347200] transition-all">Aceptar</button>
+            </div>
+            <button onclick="closeModal()"
+                class="absolute top-2 right-2 text-gray-500 text-xl hover:text-black transition">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar modal
+        function openModal() {
+            document.getElementById("modalCondiciones").classList.remove("hidden");
+            document.body.style.overflow = 'hidden';
+        }
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById("modalCondiciones").classList.add("hidden");
+            document.body.style.overflow = '';
+        }
+        // Cerrar modal con Escape
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closeModal();
+        });
+        // Cerrar al hacer click fuera del modal
+        document.getElementById("modalCondiciones").addEventListener("click", function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        const productos = {
+            "Paquete Básico": {
+                precio: 90000,
+                descripcion: "Limpieza general de áreas comunes, pisos, baños y cocina (4 horas de servicio)"
+            },
+            "Paquete Plus+": {
+                precio: 150000,
+                descripcion: "Incluye los servicios del paquete básico más limpieza profunda"
+            },
+            "Paquete Gold": {
+                precio: 200000,
+                descripcion: "Limpieza completa, detallada y profunda. Incluye todos los servicios del paquete plus+"
+            }
+        };
+
+        function addToCart(plan) {
+            cart.push(plan);
+            actualizarCantidadCarrito();
+            updateCartModal();
+        }
+
+        function actualizarCantidadCarrito() {
+            document.getElementById("cartQty").innerText = cart.length;
+        }
+
+        function updateCartModal() {
+            const cartList = document.getElementById("cartList");
+            cartList.innerHTML = "";
+            let totalSeleccionados = 0;
+            let nSeleccionados = 0;
+            let total = 0;
+            cart.forEach((item, idx) => {
+                total += productos[item].precio;
+                // Elemento del carrito con checkbox, nombre, descripción y precio
+                const li = document.createElement("li");
+                li.className = "flex items-start gap-2 border-b py-2";
+                const check = document.createElement("input");
+                check.type = "checkbox";
+                check.name = "selectedCart";
+                check.value = idx;
+                check.className = "mt-1";
+                li.appendChild(check);
+                const info = document.createElement("div");
+                info.className = "flex-1";
+                info.innerHTML = `<span class="font-semibold">${item}</span>
+      <div class="text-xs text-gray-600">${productos[item].descripcion}</div>
+      <div class="text-[#4aad00] font-bold">$${productos[item].precio.toLocaleString("es-CO")}</div>`;
+                li.appendChild(info);
+                cartList.appendChild(li);
+            });
+            document.getElementById("cartTotal").innerText = "$" + total.toLocaleString("es-CO");
+        }
+
+        function removeSelected() {
+            const selected = Array.from(document.querySelectorAll("[name='selectedCart']:checked"))
+                .map(el => parseInt(el.value));
+            selected.sort((a, b) => b - a).forEach(i => cart.splice(i, 1));
+            actualizarCantidadCarrito();
+            updateCartModal();
+        }
+
+        function comprarSeleccionados() {
+            const selected = Array.from(document.querySelectorAll("[name='selectedCart']:checked"))
+                .map(el => parseInt(el.value));
+            if (selected.length === 0) {
+                alert("Por favor selecciona al menos un producto para comprar.");
+                return;
+            }
+            let productosComprados = selected.map(i => cart[i]);
+            let total = productosComprados.reduce((sum, item) => sum + productos[item].precio, 0);
+            alert("¡Compra realizada!\nProductos: " + productosComprados.join(", ") + "\nTotal: $" + total.toLocaleString("es-CO"));
+            selected.sort((a, b) => b - a).forEach(i => cart.splice(i, 1));
+            actualizarCantidadCarrito();
+            updateCartModal();
+        }
+
+        function toggleCart() {
+            const cartModal = document.getElementById("cartModal");
+            cartModal.classList.toggle("hidden");
+            if (!cartModal.classList.contains("hidden")) {
+                document.body.style.overflow = 'hidden';
+                updateCartModal();
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Modal condiciones
+        function openModal() {
+            document.getElementById("modalCondiciones").classList.remove("hidden");
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById("modalCondiciones").classList.add("hidden");
+            document.body.style.overflow = '';
+        }
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closeModal();
+        });
+        document.getElementById("modalCondiciones").addEventListener("click", function (e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+
+
+    <!-- NOSOTROS -->
+    <section id="nosotros" class="py-16 bg-white max-w-7xl mx-auto px-6 md:px-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-[#4aad00]">Nosotros</h2>
+        <div class="space-y-8 text-gray-700">
+            <div>
+                <h3 class="text-2xl font-semibold mb-2 text-[#4aad00]">Misión</h3>
+                <p>Proporcionar servicios de aseo y limpieza de alta calidad, respetables y confiables enfocados en
+                    construir hogares más seguros y agradables para nuestros clientes. Nuestro compromiso es ofrecer
+                    servicios eficientes de manera personalizada garantizando la satisfacción y tranquilidad en cada uno
+                    de los hogares a los que brindamos nuestros servicios.</p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-2 text-[#4aad00]">Visión</h3>
+                <p>Ser la opción número uno en los hogares en servicios de aseo y limpieza, destacándose por nuestra
+                    puntualidad y compromiso. Inspirandonos en mejorar la calidad de vida de nuestros clientes a través
+                    de un trabajo respetuoso, responsable y profesional, consolidandonos como la marca líder en
+                    servicios de aseo y limpieza promoviendo hogares más seguros.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-10 mt-16" id="contacto">
+        <div
+            class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-0 px-6">
+            <!-- Izquierda: Nombre y redes -->
+            <div class="mb-6 md:mb-0 flex flex-col items-start">
+                <span class="text-white font-bold text-xl mb-3">Master Clean S.A.S</span>
+                <div class="flex gap-6">
+                    <a href="https://www.facebook.com/share/1DAXRDRaqf/" target="_blank"
+                        class="text-white text-3xl social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/mmastercleansas/" target="_blank"
+                        class="text-white text-3xl social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/AMastercle33336" target="_blank" class="text-white text-3xl social-icon"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="https://www.tiktok.com/@mastercleansasmas" target="_blank"
+                        class="text-white text-3xl social-icon"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <!-- Derecha: Términos y condiciones -->
+            <div class="mb-6 md:mb-0 flex flex-col items-start">
+                <a href="#terminos"
+                    class="text-white text-base underline underline-offset-2 hover:text-[#4aad00] transition-all"
+                    id="openPopup">Términos y condiciones</a>
+            </div>
+        </div>
+        <!-- Copyright centro inferior -->
+        <div class="text-center text-gray-400 text-sm mt-8">
+            Copyright © Master Clean S.A.S 2025
+        </div>
+    </footer>
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <div class="popup-header">Términos y Condiciones</div>
+            <div class="popup-body">
+                <p>
+                    1. <strong>Identificación del Responsable</strong><br>
+                    La empresa MasterClean – Servicios de Aseo (en adelante “MasterClean”, “nosotros” o la “Empresa”)
+                    con domicilio en [Ciudad, Dirección], identificada con NIT/RUC [_______], es responsable del
+                    tratamiento de los datos personales que usted suministre, en calidad de titular de esos datos.
+                </p>
+                <p>
+                    2. <strong>Finalidades del Tratamiento</strong><br>
+                    Los datos personales que recolectamos serán utilizados para las siguientes finalidades:
+                <ul>
+                    <li>Contratar y prestar los servicios de limpieza, aseo, mantenimiento de instalaciones y/o áreas
+                        comunes que usted haya requerido.</li>
+                    <li>Facturación, cobranza y cumplimiento de obligaciones legales, contables y tributarias.</li>
+                    <li>Gestión de clientes, seguimiento de solicitudes, cotizaciones, atención al cliente y servicio
+                        postventa.</li>
+                    <li>Envío de información comercial relacionada con nuestros servicios, novedades y promociones
+                        (cuando usted haya dado su consentimiento, de conformidad con la ley).</li>
+                    <li>Verificación, análisis y control interno de riesgos, calidad del servicio y seguridad operativa.
+                    </li>
+                    <li>Soporte de auditoría, seguridad y cumplimiento normativo.</li>
+                </ul>
+                </p>
+                <p>
+                    3. <strong>Categorías de Datos que Recolectamos</strong><br>
+                    Dependiendo del servicio contratado, podemos recoger:
+                <ul>
+                    <li>Datos de identificación: nombre, apellidos, número de identificación, empresa (si aplica).</li>
+                    <li>Datos de contacto: dirección, correo electrónico, teléfono.</li>
+                    <li>Datos de facturación: NIT/RUC, razón social, dirección, forma de pago.</li>
+                    <li>Datos del servicio: dirección del lugar de prestación, tipo de servicio, frecuencia, personal
+                        asignado, visitas.</li>
+                    <li>Datos de terceros: nombre, contacto.</li>
+                    <li>Datos de seguridad y control: registro de acceso, horarios, incidencias relacionadas con el
+                        servicio.</li>
+                </ul>
+                </p>
+                <p>
+                    4. <strong>Base Legal del Tratamiento</strong><br>
+                    Tratamos sus datos personales con fundamento en:
+                <ul>
+                    <li>El consentimiento que usted nos otorgue para ciertas finalidades.</li>
+                    <li>La ejecución del contrato de prestación de servicios entre usted y MasterClean.</li>
+                    <li>El cumplimiento de obligaciones legales, tributarias, contables y de seguridad.</li>
+                    <li>Los intereses legítimos de MasterClean y de clientes para asegurar la adecuada prestación del
+                        servicio, seguimiento de calidad y gestión operativa.</li>
+                </ul>
+                </p>
+                <p>
+                    5. <strong>Derechos de los Titulares</strong><br>
+                    Como titular de los datos personales, usted tiene los siguientes derechos:
+                <ul>
+                    <li>Derecho a conocer qué datos personales sobre usted están siendo tratados por MasterClean.</li>
+                    <li>Derecho a solicitar la actualización, rectificación o supresión de sus datos personales.</li>
+                    <li>Derecho a solicitar la revocación del consentimiento cuando éste haya sido otorgado para
+                        finalidades específicas.</li>
+                    <li>Derecho a solicitar la portabilidad de sus datos, en los casos que la normativa lo permita.</li>
+                    <li>Derecho a presentar quejas ante la autoridad de protección de datos competente si considera que
+                        sus datos no están siendo tratados conforme a la ley.</li>
+                </ul>
+                Para ejercer estos derechos, puede escribir a: <strong>privacidad@masterclean.com</strong> o llamar al
+                teléfono: (____) ____ ____.
+                </p>
+                <p>
+                    6. <strong>Medidas de Seguridad</strong><br>
+                    MasterClean adopta medidas técnicas, administrativas y organizativas apropiadas para proteger los
+                    datos personales frente a pérdida, acceso no autorizado, divulgación, alteración o destrucción.
+                </p>
+                <p>
+                    7. <strong>Conservación de Datos</strong><br>
+                    Los datos personales serán conservados por el tiempo necesario para cumplir con la finalidad para la
+                    cual se recolectaron.
+                </p>
+                <p>
+                    8. <strong>Transferencia o Compartición de Datos</strong><br>
+                    MasterClean no compartirá sus datos personales con terceros para finalidades diferentes a las
+                    descritas en esta Política, salvo autorización expresa u obligación legal.
+                </p>
+                <p>
+                    9. <strong>Modificaciones a la Política</strong><br>
+                    MasterClean se reserva el derecho de modificar esta Política en cualquier momento.
+                </p>
+                <p>
+                    10. <strong>Contacto</strong><br>
+                    Correo electrónico: <strong>mmastercleansas@gmail.com</strong><br>
+                    Teléfono: 3245659365-6015693435<br>
+                    Dirección: CRA 23 d 32 a 19 sur
+                </p>
+            </div>
+            <button class="popup-close" id="closePopup">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        const openPopup = document.getElementById('openPopup');
+        const closePopup = document.getElementById('closePopup');
+        const popup = document.getElementById('popup');
+
+        openPopup.addEventListener('click', () => {
+            popup.classList.add('show');
+        });
+
+        closePopup.addEventListener('click', () => {
+            popup.classList.remove('show');
+        });
+
+        // Cerrar al hacer clic fuera del contenido
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>
