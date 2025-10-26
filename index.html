@@ -824,112 +824,124 @@
         });
     </script>
 
-<!-- Botón flotante Mensaje -->
-<button id="openChatBtn"
-  class="fixed bottom-6 right-6 bg-[#4aad00] text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-[#3a8a00] transition-all z-60">
-  <i class="fas fa-comment-alt"></i> 
-</button>
-
-<div id="chatModal"
-     class="fixed bottom-20 right-6 bg-white rounded-lg w-72 max-w-xs shadow-lg z-[9999] flex flex-col border border-gray-300 
-            transform scale-0 opacity-0 transition-transform transition-opacity duration-300"
-     style="height: 550px;">
-  <button id="closeChatBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black text-xl">&times;</button>
-  <div id="chatHistory" class="flex-grow overflow-y-auto p-3 border-b border-gray-300 mb-3" style="margin-top: 30px;"></div>
-  <div class="flex flex-col gap-2 px-3 pb-3">
-    <textarea id="chatInput" placeholder="Escribe tu mensaje..." class="w-full resize-none border border-gray-300 rounded p-2" rows="2"></textarea>
-    <button id="sendBtn" title="Enviar" class="bg-[#4aad00] text-white rounded flex items-center justify-center w-full py-2 font-semibold hover:bg-[#3a8a00] transition">
-      <i class="fas fa-paper-plane"></i>
+    <!-- Botón flotante Mensaje -->
+    <button id="openChatBtn"
+        class="fixed bottom-6 right-6 bg-[#4aad00] text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-[#3a8a00] transition-all z-60">
+        <i class="fas fa-comment-alt"></i>
     </button>
-  </div>
-</div>
 
-<script>
-  const openChatBtn = document.getElementById('openChatBtn');
-  const chatModal = document.getElementById('chatModal');
-  const closeChatBtn = document.getElementById('closeChatBtn');
-  const chatHistory = document.getElementById('chatHistory');
-  const chatInput = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('sendBtn');
+    <div id="chatModal" class="fixed bottom-20 right-6 bg-white rounded-lg w-72 max-w-xs shadow-lg z-[9999] flex flex-col border border-gray-300 
+            transform scale-0 opacity-0 transition-transform transition-opacity duration-300" style="height: 550px;">
+        <button id="closeChatBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black text-xl">&times;</button>
+        <div id="chatHistory" class="flex-grow overflow-y-auto p-3 border-b border-gray-300 mb-3"
+            style="margin-top: 30px;"></div>
+        <div class="flex flex-col gap-2 px-3 pb-3">
+            <textarea id="chatInput" placeholder="Escribe tu mensaje..."
+                class="w-full resize-none border border-gray-300 rounded p-2" rows="2"></textarea>
+            <button id="sendBtn" title="Enviar"
+                class="bg-[#4aad00] text-white rounded flex items-center justify-center w-full py-2 font-semibold hover:bg-[#3a8a00] transition">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
 
-  // Mostrar chat al cargar
-  window.addEventListener('DOMContentLoaded', () => {
-    chatModal.classList.remove('scale-0', 'opacity-0');
-    chatModal.classList.add('scale-100', 'opacity-100');
-  });
+    <script>
+        const openChatBtn = document.getElementById('openChatBtn');
+        const chatModal = document.getElementById('chatModal');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatHistory = document.getElementById('chatHistory');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
 
-  // Abrir chat con botón flotante
-  openChatBtn.addEventListener('click', () => {
-    chatModal.classList.remove('scale-0', 'opacity-0');
-    chatModal.classList.add('scale-100', 'opacity-100');
-  });
 
-  // Cerrar chat con la X
-  closeChatBtn.addEventListener('click', () => {
-    chatModal.classList.remove('scale-100', 'opacity-100');
-    chatModal.classList.add('scale-0', 'opacity-0');
-  });
+        // Mostrar chat al cargar
+        window.addEventListener('DOMContentLoaded', () => {
+            chatModal.classList.remove('scale-0', 'opacity-0');
+            chatModal.classList.add('scale-100', 'opacity-100');
+            addMessage("¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.", false);
+        });
 
-  function addMessage(message, fromUser=true) {
-    const msg = document.createElement('div');
-    msg.textContent = message;
-    msg.className = fromUser ? 'text-right text-gray-800 mb-2' : 'text-left text-gray-600 mb-2 italic';
-    chatHistory.appendChild(msg);
-    chatHistory.scrollTop = chatHistory.scrollHeight;
-  }
+        openChatBtn.addEventListener('click', () => {
+            chatModal.classList.remove('scale-0', 'opacity-0');
+            chatModal.classList.add('scale-100', 'opacity-100');
+        });
 
-  function botReply(userMessage) {
-    const msg = userMessage.toLowerCase();
+        closeChatBtn.addEventListener('click', () => {
+            chatModal.classList.remove('scale-100', 'opacity-100');
+            chatModal.classList.add('scale-0', 'opacity-0');
+        });
 
-    if (msg.includes("hola") || msg.includes("buenas")) {
-      return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
-    }
-    if (msg.includes("precio") || msg.includes("cuánto cuesta")) {
-      return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
-    }
-    if (msg.includes("pagos") || msg.includes("pago")) {
-      return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
-    }
-    if (msg.includes("contacto") || msg.includes("whatsapp")) {
-      return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
-    }
-    if (msg.includes("horario") || msg.includes("agenda")) {
-      return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
-    }
-    if (msg.includes("gracias")) {
-      return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
-    }
-    return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
-}
+        function addMessage(message, fromUser = true) {
+            const msg = document.createElement('div');
+            msg.textContent = message;
+            msg.className = fromUser ? 'text-right text-gray-800 mb-2' : 'text-left text-gray-600 mb-2 italic';
+            chatHistory.appendChild(msg);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
 
-// Modifica tu sendBtn.addEventListener:
-sendBtn.addEventListener('click', () => {
-    const message = chatInput.value.trim();
-    if (message.length > 0) {
-        addMessage(message, true);
-        setTimeout(() => {
-            const reply = botReply(message);
-            addMessage(reply, false);
-        }, 700); // pequeña pausa para simular que responde el bot
-        chatInput.value = '';
-    }
-});
+        function botReply(userMessage) {
+            const msg = userMessage.toLowerCase();
 
-  chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendBtn.click();
-    }
-  });
-</script>
+            if (msg.includes("hola") || msg.includes("buenas")) {
+                return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
+            }
+            if (msg.includes("precio") || msg.includes("cuánto cuesta")) {
+                return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
+            }
+            if (msg.includes("pagos") || msg.includes("pago")) {
+                return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
+            }
+            if (msg.includes("contacto") || msg.includes("whatsapp")) {
+                return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
+            }
+            if (msg.includes("horario") || msg.includes("agenda")) {
+                return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
+            }
+            if (msg.includes("gracias")) {
+                return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
+            }
+            return "¡Hola! proximamente podre ayudarte con tus inquietudes sobre nuestros servicios de limpieza.";
+        }
 
-<style>
-/* Agrega esto si tu Tailwind config no incluye scale-0/scale-100 */
-.scale-0 { transform: scale(0); }
-.scale-100 { transform: scale(1); }
-.opacity-0 { opacity: 0; }
-.opacity-100 { opacity: 1; }
-</style>
+        // Modifica tu sendBtn.addEventListener:
+        sendBtn.addEventListener('click', () => {
+            const message = chatInput.value.trim();
+            if (message.length > 0) {
+                addMessage(message, true);
+                setTimeout(() => {
+                    const reply = botReply(message);
+                    addMessage(reply, false);
+                }, 700); // pequeña pausa para simular que responde el bot
+                chatInput.value = '';
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+    </script>
+
+    <style>
+        /* Agrega esto si tu Tailwind config no incluye scale-0/scale-100 */
+        .scale-0 {
+            transform: scale(0);
+        }
+
+        .scale-100 {
+            transform: scale(1);
+        }
+
+        .opacity-0 {
+            opacity: 0;
+        }
+
+        .opacity-100 {
+            opacity: 1;
+        }
+    </style>
 
 
 </body>
