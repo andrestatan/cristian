@@ -304,7 +304,7 @@
             intervalId = setInterval(() => {
                 currentIndex = (currentIndex + 1) % slides.length;
                 showSlide(currentIndex);
-            }, 5000); // 10 segundos
+            }, 5000);
         }
 
         function stopInterval() {
@@ -317,26 +317,23 @@
         document.getElementById('nextSlide').onclick = function () {
             currentIndex = (currentIndex + 1) % slides.length;
             showSlide(currentIndex);
-            startInterval(); // reinicia el temporizador
+            startInterval();
         };
 
         document.getElementById('prevSlide').onclick = function () {
             currentIndex = (currentIndex - 1 + slides.length) % slides.length;
             showSlide(currentIndex);
-            startInterval(); // reinicia el temporizador
+            startInterval();
         };
 
-        // Pausa el slider cuando el mouse está encima
         document.getElementById('hero').addEventListener('mouseenter', () => {
             stopInterval();
         });
 
-        // Reanuda el slider cuando el mouse sale
         document.getElementById('hero').addEventListener('mouseleave', () => {
             startInterval();
         });
 
-        // Inicializa con el primer slide y la rotación activa
         showSlide(0);
         startInterval();
     </script>
@@ -346,7 +343,6 @@
         <h2 class="text-3xl font-bold text-center mb-10">Planes de Servicio</h2>
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
 
-            <!-- Card Básico -->
             <div
                 class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
                 <h3 class="text-xl font-semibold text-center mb-2">PAQUETE BÁSICO POR SOLO $90.000 PESOS</h3>
@@ -495,7 +491,6 @@
     </div>
 
     <script>
-        // Modal condiciones
         function openModal() {
             document.getElementById("modalCondiciones").classList.remove("hidden");
             document.body.style.overflow = 'hidden';
@@ -511,7 +506,6 @@
             if (e.target === this) closeModal();
         });
 
-        // Carrito
         const cart = [];
         function addToCart(plan) {
             cart.push(plan);
@@ -588,21 +582,20 @@
     </div>
 
     <script>
-        // Mostrar modal
         function openModal() {
             document.getElementById("modalCondiciones").classList.remove("hidden");
             document.body.style.overflow = 'hidden';
         }
-        // Cerrar modal
+
         function closeModal() {
             document.getElementById("modalCondiciones").classList.add("hidden");
             document.body.style.overflow = '';
         }
-        // Cerrar modal con Escape
+
         document.addEventListener("keydown", function (e) {
             if (e.key === "Escape") closeModal();
         });
-        // Cerrar al hacer click fuera del modal
+
         document.getElementById("modalCondiciones").addEventListener("click", function (e) {
             if (e.target === this) closeModal();
         });
@@ -640,7 +633,6 @@
             let total = 0;
             cart.forEach((item, idx) => {
                 total += productos[item].precio;
-                // Elemento del carrito con checkbox, nombre, descripción y precio
                 const li = document.createElement("li");
                 li.className = "flex items-start gap-2 border-b py-2";
                 const check = document.createElement("input");
@@ -701,7 +693,6 @@
             }
         }
 
-        // Modal condiciones
         function openModal() {
             document.getElementById("modalCondiciones").classList.remove("hidden");
             document.body.style.overflow = 'hidden';
@@ -718,6 +709,38 @@
         });
     </script>
 
+    <!-- NOSOTROS -->
+    <section id="nosotros" class="py-16 bg-white max-w-7xl mx-auto px-6 md:px-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-[#4aad00]">Nosotros</h2>
+        <div class="space-y-8 text-gray-700">
+            <div>
+                <h3 class="text-2xl font-semibold mb-2 text-[#4aad00]">Misión</h3>
+                <p>Proporcionar servicios de aseo y limpieza de alta calidad, respetables y confiables enfocados en
+                    construir hogares más seguros y agradables para nuestros clientes. Nuestro compromiso es ofrecer
+                    servicios eficientes de manera personalizada garantizando la satisfacción y tranquilidad en cada uno
+                    de los hogares a los que brindamos nuestros servicios.</p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-2 text-[#4aad00]">Visión</h3>
+                <p>Ser la opción número uno en los hogares en servicios de aseo y limpieza, destacándose por nuestra
+                    puntualidad y compromiso. Inspirandonos en mejorar la calidad de vida de nuestros clientes a través
+                    de un trabajo respetuoso, responsable y profesional, consolidandonos como la marca líder en
+                    servicios de aseo y limpieza promoviendo hogares más seguros.</p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-2 text-[#4aad00]">Nuestra escencia</h3>
+                <p>
+                    En Master Clean armonizamos tu hogar en un espacio seguro, sano y acogedor para tu familia,
+                    ofreciendo servicios con altos estándares de calidad y eficiencia con personal altamente calificado
+                    en técnicas innovadoras y seguras para la limpieza de tu hogar. Nuestro compromiso es garantizar la
+                    satisfacción de cada uno de nuestros clientes a través de resultados impecables que cumplan
+                    totalmente tus necesidades brindando una atención personalizada garantizando satisfacción y
+                    tranquilidad en tu hogar.
+                </p>
+            </div>
+        </div>
+    </section>
+
 
     <section id="experiencias" class="max-w-7xl mx-auto py-12 px-6 bg-white relative">
         <h2 class="text-2xl font-bold text-center mb-8 text-[#4aad00]">Experiencias de Nuestros Usuarios</h2>
@@ -725,7 +748,7 @@
 
 
             <!-- Contenedor de cards -->
-<div id="sliderExp" class="flex transition-transform duration-700 ease-in-out will-change-transform">
+            <div id="sliderExp" class="flex transition-transform duration-700 ease-in-out will-change-transform">
                 <!-- Testimonios -->
                 <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
                     <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Usuario 1"
@@ -813,7 +836,7 @@
         const nextExpBtn = document.getElementById('nextExp');
 
         const totalCardsExp = sliderExp.children.length;
-        const visibleExp = 5; // Cambia a 1 para móvil si lo prefieres
+        const visibleExp = 5;
         let currentIndexExp = 0;
 
         function updateSliderExp() {
@@ -840,7 +863,6 @@
             }
         });
 
-        // Opcional: auto ajustar visibleExp en responsive
         window.addEventListener('resize', () => {
             if (window.innerWidth < 700) {
                 visibleExp = 1;
@@ -850,7 +872,7 @@
             currentIndexExp = 0;
             updateSliderExp();
         });
-        // Llama una vez para inicializar:
+
         updateSliderExp();
 
 
@@ -1002,7 +1024,6 @@
             popup.classList.remove('show');
         });
 
-        // Cerrar al hacer clic fuera del contenido
         popup.addEventListener('click', (e) => {
             if (e.target === popup) {
                 popup.classList.remove('show');
@@ -1039,8 +1060,6 @@
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
 
-
-        // Mostrar chat al cargar
         window.addEventListener('DOMContentLoaded', () => {
             chatModal.classList.remove('scale-0', 'opacity-0');
             chatModal.classList.add('scale-100', 'opacity-100');
@@ -1097,7 +1116,7 @@
                 setTimeout(() => {
                     const reply = botReply(message);
                     addMessage(reply, false);
-                }, 700); // pequeña pausa para simular que responde el bot
+                }, 700);
                 chatInput.value = '';
             }
         });
@@ -1235,7 +1254,6 @@
 
             let valid = true;
 
-            // EMAIL
             const emailInput = document.getElementById('email');
             const emailMsg = document.getElementById('emailErrorMsg') || document.createElement('div');
             emailMsg.className = "text-error";
@@ -1252,7 +1270,6 @@
                 if (emailMsg.parentElement) emailMsg.parentElement.removeChild(emailMsg);
             }
 
-            // TELÉFONO
             const telInput = document.getElementById('telefono');
             const telMsg = document.getElementById('telErrorMsg') || document.createElement('div');
             telMsg.className = "text-error";
@@ -1271,7 +1288,6 @@
             if (!valid) return;
 
             function limpiarFormularioPago() {
-                // Inputs
                 document.getElementById('nombres').value = '';
                 document.getElementById('apellidos').value = '';
                 document.getElementById('telefono').value = '';
