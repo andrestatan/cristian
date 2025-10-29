@@ -118,8 +118,13 @@
         }
     </style>
 </head>
-</head>
+<script>
+    window.onload = function() {
+  localStorage.removeItem('tidio-chat');
+  sessionStorage.removeItem('tidio-chat');
+}
 
+</script>
 <body class="font-[Inter] bg-gray-50 text-gray-800">
 
     <header
