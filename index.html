@@ -171,12 +171,14 @@
         </div>
     </header>
 
-    <!-- POPUP Carrito Mejorado -->
+    <!-- POPUP Carrito Mejorado Responsive -->
     <div id="cartModal"
         class="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-end pt-20 z-50 hidden transition-all">
-        <div class="bg-white w-full max-w-sm h-fit rounded-xl shadow-lg p-6 mr-8 flex flex-col">
-            <h2 class="font-bold text-lg mb-4 text-[#4aad00] flex items-center"><i
-                    class="fas fa-shopping-cart mr-2"></i> Carrito</h2>
+        <div class="bg-white w-full max-w-sm h-fit md:h-auto rounded-xl shadow-lg p-4 md:p-6 mr-0 md:mr-8 flex flex-col
+      max-h-[90vh] overflow-y-auto">
+            <h2 class="font-bold text-lg mb-4 text-[#4aad00] flex items-center">
+                <i class="fas fa-shopping-cart mr-2"></i> Carrito
+            </h2>
             <form id="cartForm">
                 <ul id="cartList" class="mb-4 text-black list-none"></ul>
             </form>
@@ -184,16 +186,23 @@
                 <span>Total:</span>
                 <span id="cartTotal" class="text-[#4aad00] text-lg"></span>
             </div>
-            <div class="flex gap-3">
+            <div class="flex flex-col md:flex-row gap-3 w-full mt-auto">
                 <button type="button" onclick="removeSelected()"
-                    class="bg-red-600 text-white px-4 py-2 rounded-full font-bold hover:bg-red-700 transition-all">Eliminar</button>
+                    class="bg-red-600 text-white px-4 py-2 rounded-full font-bold hover:bg-red-700 transition-all w-full md:w-auto">
+                    Eliminar
+                </button>
                 <button type="button" onclick="comprarSeleccionados()"
-                    class="bg-[#4aad00] text-white px-4 py-2 rounded-full font-bold hover:bg-[#347200] transition-all">Comprar</button>
+                    class="bg-[#4aad00] text-white px-4 py-2 rounded-full font-bold hover:bg-[#347200] transition-all w-full md:w-auto">
+                    Comprar
+                </button>
                 <button type="button" onclick="toggleCart()"
-                    class="bg-gray-200 px-4 py-2 rounded-full font-bold hover:bg-gray-300 transition-all">Cerrar</button>
+                    class="bg-gray-200 px-4 py-2 rounded-full font-bold hover:bg-gray-300 transition-all w-full md:w-auto">
+                    Cerrar
+                </button>
             </div>
         </div>
     </div>
+
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -904,7 +913,7 @@
                 </div>
             </div>
             <div class="mb-6 md:mb-0 flex flex-col items-start">
-                  <p class="text-white mb-3">
+                <p class="text-white mb-3">
                     Contáctanos: <br>
                     Correo electrónico: mmastercleansas@gmail.com<br>
                     Teléfono: 3245659365-6015693435<br>
@@ -1155,17 +1164,16 @@
         }
     </style>
 
-    <!-- Modal Pasarela de Pago responsive -->
     <div id="payModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden">
-        <div
-            class="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row w-full max-w-2xl relative mx-2 my-6 border-[4px] border-[#4aad00]">
+        <div class="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row w-full max-w-2xl relative mx-2 my-6 border-[4px] border-[#4aad00] overflow-y-auto"
+            style="max-height: 95vh;">
             <div
                 class="flex flex-col justify-center items-center px-8 py-8 bg-white rounded-t-2xl md:rounded-t-none md:rounded-r-2xl md:py-12 md:px-8 w-full md:w-auto">
                 <img src="https://images.seeklogo.com/logo-png/42/1/pse-logo-png_seeklogo-428096.png" alt="Logo PSE"
                     class="w-32 md:mb-4 mb-2 rounded shadow" />
                 <p class="text-[#4aad00] font-bold text-center text-base md:text-lg">Pago seguro PSE</p>
             </div>
-            <form class="flex-1 p-6 md:p-8 flex flex-col justify-center" style="min-width:220px;">
+            <form class="flex-1 p-6 md:p-8 flex flex-col justify-center min-w-[220px]">
                 <h2 class="text-2xl font-bold mb-4 text-[#4aad00] text-center">Agenda tu cita</h2>
                 <div class="mb-3">
                     <label for="nombres" class="block text-sm font-bold mb-1">Nombres:</label>
@@ -1191,7 +1199,6 @@
                     <label for="fecha" class="block text-sm font-bold mb-1">Fecha de la cita:</label>
                     <input type="date" id="fecha" class="w-full border rounded px-3 py-2" required />
                 </div>
-
                 <div class="mb-3">
                     <label for="hora" class="block text-sm font-bold mb-1">Hora preferida:</label>
                     <input type="time" id="hora" class="w-full border rounded px-3 py-2" required />
@@ -1199,25 +1206,24 @@
                 <div class="mb-3 flex items-center gap-2">
                     <input type="checkbox" id="acceptTerms" required class="w-5 h-5" />
                     <label for="acceptTerms" class="text-sm">Acepto los <a href="#" id="openTerms"
-                            class="underline text-blue-700">términos y condiciones</a>
-                    </label>
+                            class="underline text-blue-700">términos y condiciones</a></label>
                 </div>
-
                 <div class="flex gap-4 justify-center mt-6">
                     <button type="button" id="cancelPay"
-                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400">
+                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 w-full md:w-auto">
                         Cancelar
                     </button>
                     <button type="submit" id="confirmPay"
-                        class="bg-[#4aad00] text-white px-6 py-2 rounded hover:bg-[#347200] font-bold">
+                        class="bg-[#4aad00] text-white px-6 py-2 rounded hover:bg-[#347200] font-bold w-full md:w-auto">
                         Pagar
                     </button>
                 </div>
             </form>
-            <button id="closePayModal" class="absolute top-3 right-3 text-2xl text-[#4aad00] hover:text-[#347200]"
+            <button id="closePayModal" class="absolute top-3 right-3 text-2xl text-[#4aad00] hover:text-[#347200] z-10"
                 aria-label="Cerrar">&times;</button>
         </div>
     </div>
+
 
     <script>
         const payModal = document.getElementById('payModal');
