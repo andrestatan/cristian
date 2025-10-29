@@ -121,29 +121,52 @@
 
 <body class="font-[Inter] bg-gray-50 text-gray-800">
 
-    <!-- HEADER con carrito en la barra superior -->
-    <header
-        class="bg-white fixed top-6 left-1/2 transform -translate-x-1/2 rounded-full shadow-lg max-w-7xl w-[95vw] z-50">
-        <div class="flex justify-between items-center py-4 px-6">
-            <div class="flex items-center gap-4">
-                <img src="https://i.ibb.co/1tdsFNgW/logo-Crist.png" class="w-13 h-12 object-contain" alt="logo-Company">
-                <h1 class="text-2xl font-bold text-[#4aad00] uppercase">Master Clean S.A.S</h1>
-            </div>
-            <nav class="flex gap-6 text-right items-center">
-                <a href="#hero"
-                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Inicio</a>
-                <a href="#planes"
-                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Planes</a>
-                <a href="#nosotros"
-                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Nosotros</a>
-                <button onclick="toggleCart()" class="relative ml-4">
-                    <i class="fas fa-shopping-cart text-2xl text-[#4aad00]"></i>
-                    <span id="cartQty"
-                        class="absolute -top-2 -right-3 bg-[#4aad00] text-white rounded-full px-2 text-xs font-bold">0</span>
-                </button>
-            </nav>
-        </div>
-    </header>
+<header
+  class="bg-white fixed top-0 left-0 w-full md:top-6 md:left-1/2 md:transform md:-translate-x-1/2 md:rounded-full shadow-lg max-w-7xl md:w-[95vw] z-50 transition-all">
+  <div class="flex justify-between items-center py-4 px-6">
+    <div class="flex items-center gap-4">
+      <img src="https://i.ibb.co/1tdsFNgW/logo-Crist.png" class="w-13 h-12 object-contain" alt="logo-Company">
+      <h1 class="text-2xl font-bold text-[#4aad00] uppercase">Master Clean S.A.S</h1>
+    </div>
+
+    <nav class="hidden md:flex gap-6 text-right items-center">
+      <a href="#hero"
+        class="relative uppercase hover:after:w-full after:transition-all after:duration-700 after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Inicio</a>
+      <a href="#planes"
+        class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Planes</a>
+      <a href="#nosotros"
+        class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Nosotros</a>
+      <button onclick="toggleCart()" class="relative ml-4">
+        <i class="fas fa-shopping-cart text-2xl text-[#4aad00]"></i>
+        <span id="cartQty"
+          class="absolute -top-2 -right-3 bg-[#4aad00] text-white rounded-full px-2 text-xs font-bold">0</span>
+      </button>
+    </nav>
+
+    <!-- Botón hamburguesa móvil -->
+    <button id="menuToggle" class="md:hidden">
+      <svg class="w-8 h-8 text-[#4aad00]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Menú móvil -->
+  <div id="mobileMenu"
+    class="hidden bg-white text-[#4aad00] rounded-b-md py-4 text-base uppercase font-semibold flex flex-col w-full max-w-7xl mx-auto md:hidden shadow-lg border-t border-[#4aad00]">
+    <a href="#hero" onclick="closeMobileMenu()" class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Inicio</a>
+    <a href="#planes" onclick="closeMobileMenu()" class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Planes</a>
+    <a href="#nosotros" onclick="closeMobileMenu()" class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Nosotros</a>
+    <button onclick="toggleCart(); closeMobileMenu()"
+        class="flex items-center gap-2 px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">
+        <i class="fas fa-shopping-cart text-2xl"></i>
+        <span id="cartQtyMobile" class="text-base font-bold">0</span>
+    </button>
+</div>
+</header>
 
     <!-- POPUP Carrito Mejorado -->
     <div id="cartModal"
@@ -168,6 +191,29 @@
             </div>
         </div>
     </div>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuToggle.addEventListener('click', () => {
+    if (mobileMenu.classList.contains('hidden')) {
+      mobileMenu.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+
+  function closeMobileMenu() {
+    mobileMenu.classList.add('hidden');
+  }
+
+  // Si quieres actualizar contador en ambos (web y móvil)
+  function actualizarCantidadCarritoMobile(cantidad) {
+    document.getElementById('cartQty').innerText = cantidad;
+    document.getElementById('cartQtyMobile').innerText = cantidad;
+  }
+</script>
 
 
     <!-- HERO SLIDER -->
@@ -293,101 +339,111 @@
         startInterval();
     </script>
 
-    <!-- PLANES DE SERVICIO -->
-    <section id="planes" class="py-16 bg-gray-100">
-        <h2 class="text-3xl font-bold text-center mb-10">Planes de Servicio</h2>
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
+<!-- PLANES DE SERVICIO -->
+<section id="planes" class="py-16 bg-gray-100">
+    <h2 class="text-3xl font-bold text-center mb-10">Planes de Servicio</h2>
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
 
-            <!-- Card Básico -->
-            <div
-                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
-                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE BÁSICO POR SOLO $90.000 PESOS</h3>
-                <p class="text-center mb-4">Limpieza general de áreas comunes, pisos, baños y cocina (4 horas de
-                    servicio)</p>
-                <div>
-                    <h4 class="text-lg font-semibold text-center mb-2">Servicios de limpieza:</h4>
-                    <ul class="text-black list-disc ml-6 space-y-1">
-                        <li>Barrido y trapeado de pisos.</li>
-                        <li>Limpieza de cocina.</li>
-                        <li>Limpieza de baños.</li>
-                        <li>Limpieza de polvo en superficies de fácil acceso.</li>
-                        <li>Recolección y depósito de basura.</li>
-                        <li>Aromatización de tu hogar con fragancias suaves y duraderas.</li>
-                    </ul>
-                </div>
-                <div class="flex gap-3 mt-6">
-                    <button onclick="openModal()"
-                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all">Condiciones</button>
-                    <button onclick="addToCart('Paquete Básico')"
-                        class="bg-gray-200 rounded-full py-2 px-6 font-semibold shadow hover:bg-gray-300 transition-all">Comprar</button>
-                </div>
-                <p class="text-xs text-center italic mt-4 text-black">
-                    Agenda nuestro servicio a través de la página web
-                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
-                    plan básico aplica para hogares de hasta 60 m2
-                </p>
+        <!-- Card Básico -->
+        <div
+            class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+            <h3 class="text-xl font-semibold text-center mb-2">PAQUETE BÁSICO POR SOLO $90.000 PESOS</h3>
+            <p class="text-center mb-4">Limpieza general de áreas comunes, pisos, baños y cocina (4 horas de servicio)</p>
+            <div>
+                <h4 class="text-lg font-semibold text-center mb-2">Servicios de limpieza:</h4>
+                <ul class="text-black list-disc ml-6 space-y-1">
+                    <li>Barrido y trapeado de pisos.</li>
+                    <li>Limpieza de cocina.</li>
+                    <li>Limpieza de baños.</li>
+                    <li>Limpieza de polvo en superficies de fácil acceso.</li>
+                    <li>Recolección y depósito de basura.</li>
+                    <li>Aromatización de tu hogar con fragancias suaves y duraderas.</li>
+                </ul>
             </div>
-
-            <!-- Card Plus -->
-            <div
-                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
-                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE PLUS+ POR SOLO $150.000 PESOS</h3>
-                <p class="text-center mb-4">Incluye los servicios del paquete básico más limpieza profunda.</p>
-                <div>
-                    <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
-                    <ul class="text-black list-disc ml-6 space-y-1">
-                        <li>Todo el paquete básico.</li>
-                        <li>Cambio de sábanas y fundas en áreas de descanso.</li>
-                        <li>Limpieza de puertas y marcos.</li>
-                        <li>Limpieza de ventanas y espejos.</li>
-                        <li>Limpieza de electrodomésticos (nevera, microondas).</li>
-                        <li>Aromatización adicional en áreas específicas para mayor duración de la fragancia en tu
-                            hogar.</li>
-                    </ul>
-                </div>
-                <div class="flex gap-3 mt-6">
-                    <button onclick="openModal()"
-                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all">Condiciones</button>
-                    <button onclick="addToCart('Paquete Plus+')"
-                        class="bg-gray-200 rounded-full py-2 px-6 font-semibold shadow hover:bg-gray-300 transition-all">Comprar</button>
-                </div>
-                <p class="text-xs text-center italic mt-4 text-black">
-                    Agenda nuestro servicio a través de la página web
-                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
-                    plan básico aplica para hogares de hasta 90 m2
-                </p>
+            <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
+                <button onclick="openModal()"
+                    class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
+                    Condiciones
+                </button>
+                <button onclick="addToCart('Paquete Básico')"
+                    class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
+                    Agregar al carrito
+                </button>
             </div>
-
-            <!-- Card Gold -->
-            <div
-                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
-                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE GOLD POR SOLO $200.000</h3>
-                <p class="text-center mb-4">Limpieza completa, detallada y profunda. Incluye todos los servicios del
-                    paquete plus+</p>
-                <div>
-                    <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
-                    <ul class="text-black list-disc ml-6 space-y-1">
-                        <li>Todo el paquete plus+.</li>
-                        <li>Limpieza de tapetes y cortinas.</li>
-                        <li>Limpieza de esquinas y guarda escobas.</li>
-                        <li>Limpieza y desinfección de áreas sensibles.</li>
-                        <li>Aromatización en todo tu hogar con fragancias premium.</li>
-                    </ul>
-                </div>
-                <div class="flex gap-3 mt-6">
-                    <button onclick="openModal()"
-                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all">Condiciones</button>
-                    <button onclick="addToCart('Paquete Gold')"
-                        class="bg-gray-200 rounded-full py-2 px-6 font-semibold shadow hover:bg-gray-300 transition-all">Comprar</button>
-                </div>
-                <p class="text-xs text-center italic mt-4 text-black">
-                    Agenda nuestro servicio a través de la página web
-                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
-                    plan básico aplica para hogares de hasta 130 m2
-                </p>
-            </div>
+            <p class="text-xs text-center italic mt-4 text-black">
+                Agenda nuestro servicio a través de la página web
+                <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                plan básico aplica para hogares de hasta 60 m2
+            </p>
         </div>
-    </section>
+
+        <!-- Card Plus -->
+        <div
+            class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+            <h3 class="text-xl font-semibold text-center mb-2">PAQUETE PLUS+ POR SOLO $150.000 PESOS</h3>
+            <p class="text-center mb-4">Incluye los servicios del paquete básico más limpieza profunda.</p>
+            <div>
+                <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
+                <ul class="text-black list-disc ml-6 space-y-1">
+                    <li>Todo el paquete básico.</li>
+                    <li>Cambio de sábanas y fundas en áreas de descanso.</li>
+                    <li>Limpieza de puertas y marcos.</li>
+                    <li>Limpieza de ventanas y espejos.</li>
+                    <li>Limpieza de electrodomésticos (nevera, microondas).</li>
+                    <li>Aromatización adicional en áreas específicas para mayor duración de la fragancia en tu hogar.</li>
+                </ul>
+            </div>
+            <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
+                <button onclick="openModal()"
+                    class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
+                    Condiciones
+                </button>
+                <button onclick="addToCart('Paquete Plus+')"
+                    class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
+                    Agregar al carrito
+                </button>
+            </div>
+            <p class="text-xs text-center italic mt-4 text-black">
+                Agenda nuestro servicio a través de la página web
+                <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                plan básico aplica para hogares de hasta 90 m2
+            </p>
+        </div>
+
+        <!-- Card Gold -->
+        <div
+            class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+            <h3 class="text-xl font-semibold text-center mb-2">PAQUETE GOLD POR SOLO $200.000</h3>
+            <p class="text-center mb-4">Limpieza completa, detallada y profunda. Incluye todos los servicios del paquete plus+</p>
+            <div>
+                <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
+                <ul class="text-black list-disc ml-6 space-y-1">
+                    <li>Todo el paquete plus+.</li>
+                    <li>Limpieza de tapetes y cortinas.</li>
+                    <li>Limpieza de esquinas y guarda escobas.</li>
+                    <li>Limpieza y desinfección de áreas sensibles.</li>
+                    <li>Aromatización en todo tu hogar con fragancias premium.</li>
+                </ul>
+            </div>
+            <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
+                <button onclick="openModal()"
+                    class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
+                    Condiciones
+                </button>
+                <button onclick="addToCart('Paquete Gold')"
+                    class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
+                    Agregar al carrito
+                </button>
+            </div>
+            <p class="text-xs text-center italic mt-4 text-black">
+                Agenda nuestro servicio a través de la página web
+                <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                plan básico aplica para hogares de hasta 130 m2
+            </p>
+        </div>
+    </div>
+</section>
+
 
     <!-- MODAL CONDICIONES -->
     <div id="modalCondiciones"
@@ -616,11 +672,18 @@
             }
             let productosComprados = selected.map(i => cart[i]);
             let total = productosComprados.reduce((sum, item) => sum + productos[item].precio, 0);
-            alert("¡Compra realizada!\nProductos: " + productosComprados.join(", ") + "\nTotal: $" + total.toLocaleString("es-CO"));
-            selected.sort((a, b) => b - a).forEach(i => cart.splice(i, 1));
-            actualizarCantidadCarrito();
-            updateCartModal();
+
+            document.getElementById('payModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+           
+
+            // Opcional: si quieres pasar info del total al popup, puedes ponerlo en un span o variable global.
+            // Por ejemplo:
+            // document.getElementById('totalPago').textContent = "$" + total.toLocaleString("es-CO");
+
+            // Solo después del pago exitoso eliminamos los productos (modifica el handler de "Pagar" en el popup para vaciar el carrito si el pago fue ok)
         }
+
 
         function toggleCart() {
             const cartModal = document.getElementById("cartModal");
@@ -925,7 +988,6 @@
     </script>
 
     <style>
-        /* Agrega esto si tu Tailwind config no incluye scale-0/scale-100 */
         .scale-0 {
             transform: scale(0);
         }
@@ -943,7 +1005,248 @@
         }
     </style>
 
+    <!-- Modal Pasarela de Pago responsive -->
+    <div id="payModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden">
+        <div
+            class="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row w-full max-w-2xl relative mx-2 my-6 border-[4px] border-[#4aad00]">
+            <div
+                class="flex flex-col justify-center items-center px-8 py-8 bg-white rounded-t-2xl md:rounded-t-none md:rounded-r-2xl md:py-12 md:px-8 w-full md:w-auto">
+                <img src="https://images.seeklogo.com/logo-png/42/1/pse-logo-png_seeklogo-428096.png" alt="Logo PSE"
+                    class="w-32 md:mb-4 mb-2 rounded shadow" />
+                <p class="text-[#4aad00] font-bold text-center text-base md:text-lg">Pago seguro PSE</p>
+            </div>
+            <form class="flex-1 p-6 md:p-8 flex flex-col justify-center" style="min-width:220px;">
+                <h2 class="text-2xl font-bold mb-4 text-[#4aad00] text-center">Agenda tu cita</h2>
+                <div class="mb-3">
+                    <label for="nombres" class="block text-sm font-bold mb-1">Nombres:</label>
+                    <input type="text" id="nombres" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellidos" class="block text-sm font-bold mb-1">Apellidos:</label>
+                    <input type="text" id="apellidos" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="block text-sm font-bold mb-1">Teléfono:</label>
+                    <input type="tel" id="telefono" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="block text-sm font-bold mb-1">Email:</label>
+                    <input type="email" id="email" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="block text-sm font-bold mb-1">Dirección:</label>
+                    <input type="text" id="direccion" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fecha" class="block text-sm font-bold mb-1">Fecha de la cita:</label>
+                    <input type="date" id="fecha" class="w-full border rounded px-3 py-2" required />
+                </div>
 
+                <div class="mb-3">
+                    <label for="hora" class="block text-sm font-bold mb-1">Hora preferida:</label>
+                    <input type="time" id="hora" class="w-full border rounded px-3 py-2" required />
+                </div>
+                <div class="mb-3 flex items-center gap-2">
+                    <input type="checkbox" id="acceptTerms" required class="w-5 h-5" />
+                    <label for="acceptTerms" class="text-sm">Acepto los <a href="#" id="openTerms"
+                            class="underline text-blue-700">términos y condiciones</a>
+                    </label>
+                </div>
+
+                <div class="flex gap-4 justify-center mt-6">
+                    <button type="button" id="cancelPay"
+                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400">
+                        Cancelar
+                    </button>
+                    <button type="submit" id="confirmPay"
+                        class="bg-[#4aad00] text-white px-6 py-2 rounded hover:bg-[#347200] font-bold">
+                        Pagar
+                    </button>
+                </div>
+            </form>
+            <button id="closePayModal" class="absolute top-3 right-3 text-2xl text-[#4aad00] hover:text-[#347200]"
+                aria-label="Cerrar">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        const payModal = document.getElementById('payModal');
+        const closePayModalBtn = document.getElementById('closePayModal');
+        const cancelPayBtn = document.getElementById('cancelPay');
+
+        document.getElementById('openPayModal').addEventListener('click', () => {
+            payModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closePayModalBtn.addEventListener('click', cerrarModal);
+
+        cancelPayBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            cerrarModal();
+             limpiarFormularioPago();
+        });
+
+
+        document.getElementById('confirmPay').addEventListener('click', (e) => {
+            e.preventDefault();
+            cerrarModal();
+             limpiarFormularioPago();
+        });
+    </script>
+
+    <style>
+        .input-error {
+            border-color: #e3342f !important;
+        }
+
+        .text-error {
+            color: #e3342f;
+            font-size: 0.95em;
+            margin-top: 2px;
+        }
+    </style>
+    <script>
+        document.getElementById('confirmPay').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let valid = true;
+
+            // EMAIL
+            const emailInput = document.getElementById('email');
+            const emailMsg = document.getElementById('emailErrorMsg') || document.createElement('div');
+            emailMsg.className = "text-error";
+            emailMsg.id = "emailErrorMsg";
+            const emailValue = emailInput.value.trim();
+
+            if (!emailValue.includes("@") || !emailValue.endsWith(".com")) {
+                emailMsg.textContent = "el formato del correo ingresado es erroneo por favor verifiquelo";
+                emailInput.classList.add("input-error");
+                emailInput.parentElement.appendChild(emailMsg);
+                valid = false;
+            } else {
+                emailInput.classList.remove("input-error");
+                if (emailMsg.parentElement) emailMsg.parentElement.removeChild(emailMsg);
+            }
+
+            // TELÉFONO
+            const telInput = document.getElementById('telefono');
+            const telMsg = document.getElementById('telErrorMsg') || document.createElement('div');
+            telMsg.className = "text-error";
+            telMsg.id = "telErrorMsg";
+            const digits = telInput.value.replace(/\D/g, '');
+            if (digits.length > 10 || digits.length < 10) {
+                telMsg.textContent = "el numero de telefono es erroneo por favor verifiquelo";
+                telInput.classList.add("input-error");
+                telInput.parentElement.appendChild(telMsg);
+                valid = false;
+            } else {
+                telInput.classList.remove("input-error");
+                if (telMsg.parentElement) telMsg.parentElement.removeChild(telMsg);
+            }
+
+            if (!valid) return;
+
+            function limpiarFormularioPago() {
+                // Inputs
+                document.getElementById('nombres').value = '';
+                document.getElementById('apellidos').value = '';
+                document.getElementById('telefono').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('direccion').value = '';
+                document.getElementById('acceptTerms').checked = false;
+
+                ['emailErrorMsg', 'telErrorMsg'].forEach(function (id) {
+                    let el = document.getElementById(id);
+                    if (el && el.parentElement) el.parentElement.removeChild(el);
+                });
+                ['nombres', 'apellidos', 'telefono', 'email', 'direccion'].forEach(function (id) {
+                    document.getElementById(id).classList.remove('input-error');
+                });
+            }
+        });
+
+        document.getElementById('email').addEventListener('input', function () {
+            const eInput = this;
+            const eMsg = document.getElementById('emailErrorMsg');
+            if (eInput.value.includes('@') && eInput.value.endsWith('.com')) {
+                eInput.classList.remove('input-error');
+                if (eMsg) eMsg.parentElement.removeChild(eMsg);
+            }
+        });
+        document.getElementById('telefono').addEventListener('input', function () {
+            const tInput = this;
+            const tMsg = document.getElementById('telErrorMsg');
+            const digits = tInput.value.replace(/\D/g, '');
+            if (digits.length <= 10) {
+                tInput.classList.remove('input-error');
+                if (tMsg) tMsg.parentElement.removeChild(tMsg);
+            }
+        });
+
+        document.getElementById('openTerms').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('popup').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var payModal = document.getElementById('payModal');
+            var closePayBtn = document.getElementById('closePayModal');
+            var cancelPayBtn = document.getElementById('cancelPay');
+            var confirmPayBtn = document.getElementById('confirmPay');
+
+            var payModal = document.getElementById('payModal');
+            if (!payModal) return;
+
+            var closePayModalBtn = payModal.querySelector('#closePayModal');
+            var cancelPayBtn = payModal.querySelector('#cancelPay');
+            var confirmPayBtn = payModal.querySelector('#confirmPay');
+
+            if (closePayModalBtn) {
+                closePayModalBtn.addEventListener('click', function () {
+                    payModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                     limpiarFormularioPago();
+                });
+            }
+            if (cancelPayBtn) {
+                cancelPayBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    payModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                     limpiarFormularioPago();
+                });
+            }
+            if (confirmPayBtn) {
+                confirmPayBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    payModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                     limpiarFormularioPago();
+                });
+            }
+
+            function cerrarModal() {
+                payModal.classList.add('hidden');
+                document.body.style.overflow = '';
+                limpiarFormularioPago();
+            }
+
+            if (closePayBtn) closePayBtn.onclick = cerrarModal;
+            if (cancelPayBtn) cancelPayBtn.onclick = function (evt) {
+                evt.preventDefault();
+                cerrarModal();
+            }
+
+            if (confirmPayBtn) confirmPayBtn.onclick = function (evt) {
+                evt.preventDefault();
+                alert('¡Pago realizado vía PSE!');
+                cerrarModal();
+            }
+        });
+    </script>
 </body>
 
 </html>
