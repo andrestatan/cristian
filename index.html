@@ -121,52 +121,55 @@
 
 <body class="font-[Inter] bg-gray-50 text-gray-800">
 
-<header
-  class="bg-white fixed top-0 left-0 w-full md:top-6 md:left-1/2 md:transform md:-translate-x-1/2 md:rounded-full shadow-lg max-w-7xl md:w-[95vw] z-50 transition-all">
-  <div class="flex justify-between items-center py-4 px-6">
-    <div class="flex items-center gap-4">
-      <img src="https://i.ibb.co/1tdsFNgW/logo-Crist.png" class="w-13 h-12 object-contain" alt="logo-Company">
-      <h1 class="text-2xl font-bold text-[#4aad00] uppercase">Master Clean S.A.S</h1>
-    </div>
+    <header
+        class="bg-white fixed top-0 left-0 w-full md:top-6 md:left-1/2 md:transform md:-translate-x-1/2 md:rounded-full shadow-lg max-w-7xl md:w-[95vw] z-50 transition-all">
+        <div class="flex justify-between items-center py-4 px-6">
+            <div class="flex items-center gap-4">
+                <img src="https://i.ibb.co/1tdsFNgW/logo-Crist.png" class="w-13 h-12 object-contain" alt="logo-Company">
+                <h1 class="text-2xl font-bold text-[#4aad00] uppercase">Master Clean S.A.S</h1>
+            </div>
 
-    <nav class="hidden md:flex gap-6 text-right items-center">
-      <a href="#hero"
-        class="relative uppercase hover:after:w-full after:transition-all after:duration-700 after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Inicio</a>
-      <a href="#planes"
-        class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Planes</a>
-      <a href="#nosotros"
-        class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Nosotros</a>
-      <button onclick="toggleCart()" class="relative ml-4">
-        <i class="fas fa-shopping-cart text-2xl text-[#4aad00]"></i>
-        <span id="cartQty"
-          class="absolute -top-2 -right-3 bg-[#4aad00] text-white rounded-full px-2 text-xs font-bold">0</span>
-      </button>
-    </nav>
+            <nav class="hidden md:flex gap-6 text-right items-center">
+                <a href="#hero"
+                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Inicio</a>
+                <a href="#planes"
+                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Planes</a>
+                <a href="#nosotros"
+                    class="relative uppercase hover:after:w-full after:transition-all after:duration-700 ease-in after:w-0 after:h-[2px] after:bg-[#4aad00] after:absolute after:-bottom-1 after:left-0">Nosotros</a>
+                <button onclick="toggleCart()" class="relative ml-4">
+                    <i class="fas fa-shopping-cart text-2xl text-[#4aad00]"></i>
+                    <span id="cartQty"
+                        class="absolute -top-2 -right-3 bg-[#4aad00] text-white rounded-full px-2 text-xs font-bold">0</span>
+                </button>
+            </nav>
 
-    <!-- Botón hamburguesa móvil -->
-    <button id="menuToggle" class="md:hidden">
-      <svg class="w-8 h-8 text-[#4aad00]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-        stroke-linejoin="round" viewBox="0 0 24 24">
-        <line x1="3" y1="12" x2="21" y2="12" />
-        <line x1="3" y1="6" x2="21" y2="6" />
-        <line x1="3" y1="18" x2="21" y2="18" />
-      </svg>
-    </button>
-  </div>
+            <!-- Botón hamburguesa móvil -->
+            <button id="menuToggle" class="md:hidden">
+                <svg class="w-8 h-8 text-[#4aad00]" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+        </div>
 
-  <!-- Menú móvil -->
-  <div id="mobileMenu"
-    class="hidden bg-white text-[#4aad00] rounded-b-md py-4 text-base uppercase font-semibold flex flex-col w-full max-w-7xl mx-auto md:hidden shadow-lg border-t border-[#4aad00]">
-    <a href="#hero" onclick="closeMobileMenu()" class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Inicio</a>
-    <a href="#planes" onclick="closeMobileMenu()" class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Planes</a>
-    <a href="#nosotros" onclick="closeMobileMenu()" class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Nosotros</a>
-    <button onclick="toggleCart(); closeMobileMenu()"
-        class="flex items-center gap-2 px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">
-        <i class="fas fa-shopping-cart text-2xl"></i>
-        <span id="cartQtyMobile" class="text-base font-bold">0</span>
-    </button>
-</div>
-</header>
+        <!-- Menú móvil -->
+        <div id="mobileMenu"
+            class="hidden bg-white text-[#4aad00] rounded-b-md py-4 text-base uppercase font-semibold flex flex-col w-full max-w-7xl mx-auto md:hidden shadow-lg border-t border-[#4aad00]">
+            <a href="#hero" onclick="closeMobileMenu()"
+                class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Inicio</a>
+            <a href="#planes" onclick="closeMobileMenu()"
+                class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Planes</a>
+            <a href="#nosotros" onclick="closeMobileMenu()"
+                class="block px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">Nosotros</a>
+            <button onclick="toggleCart(); closeMobileMenu()"
+                class="flex items-center gap-2 px-6 py-3 border-b border-gray-200 hover:bg-[#e6ffe6]">
+                <i class="fas fa-shopping-cart text-2xl"></i>
+                <span id="cartQtyMobile" class="text-base font-bold">0</span>
+            </button>
+        </div>
+    </header>
 
     <!-- POPUP Carrito Mejorado -->
     <div id="cartModal"
@@ -192,28 +195,27 @@
         </div>
     </div>
 
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-  menuToggle.addEventListener('click', () => {
-    if (mobileMenu.classList.contains('hidden')) {
-      mobileMenu.classList.remove('hidden');
-    } else {
-      mobileMenu.classList.add('hidden');
-    }
-  });
+        menuToggle.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
 
-  function closeMobileMenu() {
-    mobileMenu.classList.add('hidden');
-  }
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
 
-  // Si quieres actualizar contador en ambos (web y móvil)
-  function actualizarCantidadCarritoMobile(cantidad) {
-    document.getElementById('cartQty').innerText = cantidad;
-    document.getElementById('cartQtyMobile').innerText = cantidad;
-  }
-</script>
+        function actualizarCantidadCarritoMobile(cantidad) {
+            document.getElementById('cartQty').innerText = cantidad;
+            document.getElementById('cartQtyMobile').innerText = cantidad;
+        }
+    </script>
 
 
     <!-- HERO SLIDER -->
@@ -339,110 +341,113 @@
         startInterval();
     </script>
 
-<!-- PLANES DE SERVICIO -->
-<section id="planes" class="py-16 bg-gray-100">
-    <h2 class="text-3xl font-bold text-center mb-10">Planes de Servicio</h2>
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
+    <!-- PLANES DE SERVICIO -->
+    <section id="planes" class="py-16 bg-gray-100">
+        <h2 class="text-3xl font-bold text-center mb-10">Planes de Servicio</h2>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
 
-        <!-- Card Básico -->
-        <div
-            class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
-            <h3 class="text-xl font-semibold text-center mb-2">PAQUETE BÁSICO POR SOLO $90.000 PESOS</h3>
-            <p class="text-center mb-4">Limpieza general de áreas comunes, pisos, baños y cocina (4 horas de servicio)</p>
-            <div>
-                <h4 class="text-lg font-semibold text-center mb-2">Servicios de limpieza:</h4>
-                <ul class="text-black list-disc ml-6 space-y-1">
-                    <li>Barrido y trapeado de pisos.</li>
-                    <li>Limpieza de cocina.</li>
-                    <li>Limpieza de baños.</li>
-                    <li>Limpieza de polvo en superficies de fácil acceso.</li>
-                    <li>Recolección y depósito de basura.</li>
-                    <li>Aromatización de tu hogar con fragancias suaves y duraderas.</li>
-                </ul>
+            <!-- Card Básico -->
+            <div
+                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE BÁSICO POR SOLO $90.000 PESOS</h3>
+                <p class="text-center mb-4">Limpieza general de áreas comunes, pisos, baños y cocina (4 horas de
+                    servicio)</p>
+                <div>
+                    <h4 class="text-lg font-semibold text-center mb-2">Servicios de limpieza:</h4>
+                    <ul class="text-black list-disc ml-6 space-y-1">
+                        <li>Barrido y trapeado de pisos.</li>
+                        <li>Limpieza de cocina.</li>
+                        <li>Limpieza de baños.</li>
+                        <li>Limpieza de polvo en superficies de fácil acceso.</li>
+                        <li>Recolección y depósito de basura.</li>
+                        <li>Aromatización de tu hogar con fragancias suaves y duraderas.</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
+                    <button onclick="openModal()"
+                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
+                        Condiciones
+                    </button>
+                    <button onclick="addToCart('Paquete Básico')"
+                        class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
+                        Agregar al carrito
+                    </button>
+                </div>
+                <p class="text-xs text-center italic mt-4 text-black">
+                    Agenda nuestro servicio a través de la página web
+                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                    plan básico aplica para hogares de hasta 60 m2
+                </p>
             </div>
-            <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
-                <button onclick="openModal()"
-                    class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
-                    Condiciones
-                </button>
-                <button onclick="addToCart('Paquete Básico')"
-                    class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
-                    Agregar al carrito
-                </button>
-            </div>
-            <p class="text-xs text-center italic mt-4 text-black">
-                Agenda nuestro servicio a través de la página web
-                <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
-                plan básico aplica para hogares de hasta 60 m2
-            </p>
-        </div>
 
-        <!-- Card Plus -->
-        <div
-            class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
-            <h3 class="text-xl font-semibold text-center mb-2">PAQUETE PLUS+ POR SOLO $150.000 PESOS</h3>
-            <p class="text-center mb-4">Incluye los servicios del paquete básico más limpieza profunda.</p>
-            <div>
-                <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
-                <ul class="text-black list-disc ml-6 space-y-1">
-                    <li>Todo el paquete básico.</li>
-                    <li>Cambio de sábanas y fundas en áreas de descanso.</li>
-                    <li>Limpieza de puertas y marcos.</li>
-                    <li>Limpieza de ventanas y espejos.</li>
-                    <li>Limpieza de electrodomésticos (nevera, microondas).</li>
-                    <li>Aromatización adicional en áreas específicas para mayor duración de la fragancia en tu hogar.</li>
-                </ul>
+            <!-- Card Plus -->
+            <div
+                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE PLUS+ POR SOLO $150.000 PESOS</h3>
+                <p class="text-center mb-4">Incluye los servicios del paquete básico más limpieza profunda.</p>
+                <div>
+                    <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
+                    <ul class="text-black list-disc ml-6 space-y-1">
+                        <li>Todo el paquete básico.</li>
+                        <li>Cambio de sábanas y fundas en áreas de descanso.</li>
+                        <li>Limpieza de puertas y marcos.</li>
+                        <li>Limpieza de ventanas y espejos.</li>
+                        <li>Limpieza de electrodomésticos (nevera, microondas).</li>
+                        <li>Aromatización adicional en áreas específicas para mayor duración de la fragancia en tu
+                            hogar.</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
+                    <button onclick="openModal()"
+                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
+                        Condiciones
+                    </button>
+                    <button onclick="addToCart('Paquete Plus+')"
+                        class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
+                        Agregar al carrito
+                    </button>
+                </div>
+                <p class="text-xs text-center italic mt-4 text-black">
+                    Agenda nuestro servicio a través de la página web
+                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                    plan básico aplica para hogares de hasta 90 m2
+                </p>
             </div>
-            <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
-                <button onclick="openModal()"
-                    class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
-                    Condiciones
-                </button>
-                <button onclick="addToCart('Paquete Plus+')"
-                    class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
-                    Agregar al carrito
-                </button>
-            </div>
-            <p class="text-xs text-center italic mt-4 text-black">
-                Agenda nuestro servicio a través de la página web
-                <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
-                plan básico aplica para hogares de hasta 90 m2
-            </p>
-        </div>
 
-        <!-- Card Gold -->
-        <div
-            class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
-            <h3 class="text-xl font-semibold text-center mb-2">PAQUETE GOLD POR SOLO $200.000</h3>
-            <p class="text-center mb-4">Limpieza completa, detallada y profunda. Incluye todos los servicios del paquete plus+</p>
-            <div>
-                <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
-                <ul class="text-black list-disc ml-6 space-y-1">
-                    <li>Todo el paquete plus+.</li>
-                    <li>Limpieza de tapetes y cortinas.</li>
-                    <li>Limpieza de esquinas y guarda escobas.</li>
-                    <li>Limpieza y desinfección de áreas sensibles.</li>
-                    <li>Aromatización en todo tu hogar con fragancias premium.</li>
-                </ul>
+            <!-- Card Gold -->
+            <div
+                class="bg-white rounded-3xl shadow-lg overflow-hidden p-6 flex flex-col items-center min-h-[500px] border-2 border-transparent transition-all duration-500 hover:border-[#4aad00]">
+                <h3 class="text-xl font-semibold text-center mb-2">PAQUETE GOLD POR SOLO $200.000</h3>
+                <p class="text-center mb-4">Limpieza completa, detallada y profunda. Incluye todos los servicios del
+                    paquete plus+</p>
+                <div>
+                    <h4 class="text-lg font-semibold text-center mb-2">Servicios:</h4>
+                    <ul class="text-black list-disc ml-6 space-y-1">
+                        <li>Todo el paquete plus+.</li>
+                        <li>Limpieza de tapetes y cortinas.</li>
+                        <li>Limpieza de esquinas y guarda escobas.</li>
+                        <li>Limpieza y desinfección de áreas sensibles.</li>
+                        <li>Aromatización en todo tu hogar con fragancias premium.</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
+                    <button onclick="openModal()"
+                        class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
+                        Condiciones
+                    </button>
+                    <button onclick="addToCart('Paquete Gold')"
+                        class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
+                        Agregar al carrito
+                    </button>
+                </div>
+                <p class="text-xs text-center italic mt-4 text-black">
+                    Agenda nuestro servicio a través de la página web
+                    <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
+                    plan básico aplica para hogares de hasta 130 m2
+                </p>
             </div>
-            <div class="flex flex-col md:flex-row gap-3 mt-6 w-full items-center justify-center md:justify-start">
-                <button onclick="openModal()"
-                    class="bg-[#4aad00] text-white rounded-full py-2 px-6 font-semibold shadow hover:bg-[#347200] transition-all w-full md:w-auto">
-                    Condiciones
-                </button>
-                <button onclick="addToCart('Paquete Gold')"
-                    class="bg-gray-200 rounded-full py-2 px-2 font-semibold shadow hover:bg-gray-300 transition-all w-full md:w-auto">
-                    Agregar al carrito
-                </button>
-            </div>
-            <p class="text-xs text-center italic mt-4 text-black">
-                Agenda nuestro servicio a través de la página web
-                <a href="https://www.masterclean.com.co" class="underline text-blue-700">www.masterclean.com.co</a>
-                plan básico aplica para hogares de hasta 130 m2
-            </p>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <!-- MODAL CONDICIONES -->
@@ -675,7 +680,7 @@
 
             document.getElementById('payModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-           
+
 
             // Opcional: si quieres pasar info del total al popup, puedes ponerlo en un span o variable global.
             // Por ejemplo:
@@ -714,26 +719,144 @@
     </script>
 
 
-    <!-- NOSOTROS -->
-    <section id="nosotros" class="py-16 bg-white max-w-7xl mx-auto px-6 md:px-16">
-        <h2 class="text-3xl font-bold text-center mb-8 text-[#4aad00]">Nosotros</h2>
-        <div class="space-y-8 text-gray-700">
-            <div>
-                <h3 class="text-2xl font-semibold mb-2 text-[#4aad00]">Misión</h3>
-                <p>Proporcionar servicios de aseo y limpieza de alta calidad, respetables y confiables enfocados en
-                    construir hogares más seguros y agradables para nuestros clientes. Nuestro compromiso es ofrecer
-                    servicios eficientes de manera personalizada garantizando la satisfacción y tranquilidad en cada uno
-                    de los hogares a los que brindamos nuestros servicios.</p>
+    <section id="experiencias" class="max-w-7xl mx-auto py-12 px-6 bg-white relative">
+        <h2 class="text-2xl font-bold text-center mb-8 text-[#4aad00]">Experiencias de Nuestros Usuarios</h2>
+        <div class="overflow-x-hidden relative">
+
+
+            <!-- Contenedor de cards -->
+<div id="sliderExp" class="flex transition-transform duration-700 ease-in-out will-change-transform">
+                <!-- Testimonios -->
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Usuario 1"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">María González</h3>
+                    <p class="text-sm text-gray-700 text-center">Muy profesionales y puntuales. Dejaron mi casa
+                        impecable y aromas muy agradables.</p>
+                </div>
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Usuario 2"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">Juan Pérez</h3>
+                    <p class="text-sm text-gray-700 text-center">Servicio confiable y atención personalizada.
+                        Recomendado para oficinas y hogares.</p>
+                </div>
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Usuario 3"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">Laura Martínez</h3>
+                    <p class="text-sm text-gray-700 text-center">Me encanta la limpieza profunda y el cuidado de cada
+                        rincón, hacen un trabajo excelente.</p>
+                </div>
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Usuario 4"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">Carlos Rojas</h3>
+                    <p class="text-sm text-gray-700 text-center">Muy atentos y puntuales, solucionaron todas mis
+                        necesidades de limpieza sin problema.</p>
+                </div>
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Usuario 5"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">Sofía Díaz</h3>
+                    <p class="text-sm text-gray-700 text-center">Excelente servicio y productos, además el precio es muy
+                        competitivo para tanta calidad.</p>
+                </div>
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/men/30.jpg" alt="Usuario 6"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">Andrés Ramírez</h3>
+                    <p class="text-sm text-gray-700 text-center">Muy recomendable, realizan la limpieza puntual y con
+                        gran dedicación en cada visita.</p>
+                </div>
+
+                <!-- Duplicados para loop -->
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Usuario 1"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">María González</h3>
+                    <p class="text-sm text-gray-700 text-center">Muy profesionales y puntuales. Dejaron mi casa
+                        impecable y aromas muy agradables.</p>
+                </div>
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Usuario 2"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">Juan Pérez</h3>
+                    <p class="text-sm text-gray-700 text-center">Servicio confiable y atención personalizada.
+                        Recomendado para oficinas y hogares.</p>
+                </div>
+                <div class="flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 mx-2">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Usuario 3"
+                        class="rounded-full w-16 h-16 mx-auto mb-3">
+                    <h3 class="text-lg font-semibold text-center mb-1">Laura Martínez</h3>
+                    <p class="text-sm text-gray-700 text-center">Me encanta la limpieza profunda y el cuidado de cada
+                        rincón, hacen un trabajo excelente.</p>
+                </div>
             </div>
-            <div>
-                <h3 class="text-2xl font-semibold mb-2 text-[#4aad00]">Visión</h3>
-                <p>Ser la opción número uno en los hogares en servicios de aseo y limpieza, destacándose por nuestra
-                    puntualidad y compromiso. Inspirandonos en mejorar la calidad de vida de nuestros clientes a través
-                    de un trabajo respetuoso, responsable y profesional, consolidandonos como la marca líder en
-                    servicios de aseo y limpieza promoviendo hogares más seguros.</p>
-            </div>
+
+            <!-- Flechas fuera del track -->
+            <button id="prevExp"
+                class="absolute left-2 top-1/2 -translate-y-1/2 bg-white border border-[#4aad00] text-[#4aad00] rounded-full p-3 shadow z-40 hover:bg-[#4aad00] hover:text-white transition">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="nextExp"
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-white border border-[#4aad00] text-[#4aad00] rounded-full p-3 shadow z-40 hover:bg-[#4aad00] hover:text-white transition">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
         </div>
     </section>
+
+    <script>
+        const sliderExp = document.getElementById('sliderExp');
+        const prevExpBtn = document.getElementById('prevExp');
+        const nextExpBtn = document.getElementById('nextExp');
+
+        const totalCardsExp = sliderExp.children.length;
+        const visibleExp = 5; // Cambia a 1 para móvil si lo prefieres
+        let currentIndexExp = 0;
+
+        function updateSliderExp() {
+            sliderExp.style.transform = `translateX(${-currentIndexExp * (sliderExp.children[0].offsetWidth + 16)}px)`;
+        }
+
+        prevExpBtn.addEventListener('click', () => {
+            if (currentIndexExp > 0) {
+                currentIndexExp--;
+                updateSliderExp();
+            } else {
+                currentIndexExp = totalCardsExp - visibleExp;
+                updateSliderExp();
+            }
+        });
+
+        nextExpBtn.addEventListener('click', () => {
+            if (currentIndexExp < totalCardsExp - visibleExp) {
+                currentIndexExp++;
+                updateSliderExp();
+            } else {
+                currentIndexExp = 0;
+                updateSliderExp();
+            }
+        });
+
+        // Opcional: auto ajustar visibleExp en responsive
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 700) {
+                visibleExp = 1;
+            } else {
+                visibleExp = 5;
+            }
+            currentIndexExp = 0;
+            updateSliderExp();
+        });
+        // Llama una vez para inicializar:
+        updateSliderExp();
+
+
+    </script>
+
+
 
     <!-- FOOTER -->
     <footer class="bg-black py-10 mt-16" id="contacto">
@@ -1084,14 +1207,14 @@
         cancelPayBtn.addEventListener('click', (e) => {
             e.preventDefault();
             cerrarModal();
-             limpiarFormularioPago();
+            limpiarFormularioPago();
         });
 
 
         document.getElementById('confirmPay').addEventListener('click', (e) => {
             e.preventDefault();
             cerrarModal();
-             limpiarFormularioPago();
+            limpiarFormularioPago();
         });
     </script>
 
@@ -1208,7 +1331,7 @@
                 closePayModalBtn.addEventListener('click', function () {
                     payModal.classList.add('hidden');
                     document.body.style.overflow = '';
-                     limpiarFormularioPago();
+                    limpiarFormularioPago();
                 });
             }
             if (cancelPayBtn) {
@@ -1216,7 +1339,7 @@
                     e.preventDefault();
                     payModal.classList.add('hidden');
                     document.body.style.overflow = '';
-                     limpiarFormularioPago();
+                    limpiarFormularioPago();
                 });
             }
             if (confirmPayBtn) {
@@ -1224,7 +1347,7 @@
                     e.preventDefault();
                     payModal.classList.add('hidden');
                     document.body.style.overflow = '';
-                     limpiarFormularioPago();
+                    limpiarFormularioPago();
                 });
             }
 
@@ -1242,7 +1365,7 @@
 
             if (confirmPayBtn) confirmPayBtn.onclick = function (evt) {
                 evt.preventDefault();
-                alert('¡Pago realizado vía PSE!');
+                alert('¡Redireccionando a PSE!');
                 cerrarModal();
             }
         });
